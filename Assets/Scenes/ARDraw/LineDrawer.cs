@@ -1,19 +1,20 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR.ARFoundation;
-using UnityEngine.XR.ARSubsystems;
 
-public class ARDraw : MonoBehaviour
+public class LineDrawer : MonoBehaviour
 {
-    public GameObject linePrefab; // Prefab with a LineRenderer component
-    public Camera arCamera; // The AR camera
-    public float drawOffset = 0.5f; // Distance in front of the camera to draw
-    public float lineWidth = 0.01f; // Width of the line
+    public GameObject linePrefab;
+    public Camera arCamera;
+    public float drawOffset = 0.5f;
+    public float lineWidth = 0.01f;
+    public Material[] materials; // Array to hold different materials for the line
+    private int materialIndex = 0;
 
     private LineRenderer currentLine;
     private int pointIndex;
     private bool drawLine;
     private GameObject currentLineObject;
+    private List<GameObject> allLines = new List<GameObject>();
 
     void Start()
     {
@@ -22,7 +23,6 @@ public class ARDraw : MonoBehaviour
 
     void Update()
     {
-        // Handle touch input for drawing in AR
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -44,15 +44,16 @@ public class ARDraw : MonoBehaviour
 
     void StartDrawing(Vector2 inputPosition)
     {
-        // Instantiate a new line object and initialize the LineRenderer
         currentLineObject = Instantiate(linePrefab);
         currentLineObject.tag = "ARLine";
         currentLine = currentLineObject.GetComponent<LineRenderer>();
         currentLine.startWidth = lineWidth;
         currentLine.endWidth = lineWidth;
         currentLine.useWorldSpace = true;
+        currentLine.material = materials[materialIndex]; // Set the current material
         pointIndex = 0;
         drawLine = true;
+        allLines.Add(currentLineObject); // Add the line to the list
     }
 
     void UpdateDrawing(Vector2 inputPosition)
@@ -61,7 +62,6 @@ public class ARDraw : MonoBehaviour
         {
             pointIndex++;
             currentLine.positionCount = pointIndex;
-            // Convert screen point to world point and add it to the LineRenderer
             Vector3 newPoint = arCamera.ScreenToWorldPoint(new Vector3(inputPosition.x, inputPosition.y, drawOffset));
             currentLine.SetPosition(pointIndex - 1, newPoint);
         }
@@ -72,5 +72,21 @@ public class ARDraw : MonoBehaviour
         drawLine = false;
         currentLine = null;
         currentLineObject = null;
+    }
+
+    public void ClearLines()
+    {
+        Debug.Log("Clear Lines button pressed");
+        foreach (var line in allLines)
+        {
+            Destroy(line);
+        }
+        allLines.Clear();
+    }
+
+    public void ChangeLineColor()
+    {
+        Debug.Log("Change Color button pressed");
+        materialIndex = (materialIndex + 1) % materials.Length; // Cycle through materials
     }
 }
