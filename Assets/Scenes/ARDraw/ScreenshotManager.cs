@@ -8,6 +8,7 @@ public class ScreenshotManager : MonoBehaviour
 {
     public static ScreenshotManager Instance { get; private set; }
     public GameObject flashPanel;
+    public Canvas canvasToHide; // Reference to the Canvas to hide
 
     void Awake()
     {
@@ -28,6 +29,9 @@ public class ScreenshotManager : MonoBehaviour
 
     private IEnumerator CaptureScreenshot()
     {
+        // Hide the canvas
+        canvasToHide.gameObject.SetActive(false);
+
         // Wait for end of frame to ensure everything is rendered
         yield return new WaitForEndOfFrame();
 
@@ -46,6 +50,9 @@ public class ScreenshotManager : MonoBehaviour
 
         // Show the flash effect after taking the screenshot
         StartCoroutine(FlashEffect());
+
+        // Re-enable the canvas
+        canvasToHide.gameObject.SetActive(true);
 
         // To avoid memory leaks
         Destroy(screenTexture);

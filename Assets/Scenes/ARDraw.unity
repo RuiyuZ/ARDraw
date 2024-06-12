@@ -1176,6 +1176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flashPanel: {fileID: 569152494}
+  canvasToHide: {fileID: 96480802}
 --- !u!4 &657108028
 Transform:
   m_ObjectHideFlags: 0
