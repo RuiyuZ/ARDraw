@@ -1,11 +1,13 @@
 using System.Collections;
 using System.IO;
 using UnityEngine;
-using NativeGalleryNamespace; // Add this line to use Native Gallery
+using UnityEngine.UI;
+using NativeGalleryNamespace;
 
 public class ScreenshotManager : MonoBehaviour
 {
     public static ScreenshotManager Instance { get; private set; }
+    public GameObject flashPanel;
 
     void Awake()
     {
@@ -42,7 +44,40 @@ public class ScreenshotManager : MonoBehaviour
 
         Debug.Log("Permission result: " + permission);
 
+        // Show the flash effect after taking the screenshot
+        StartCoroutine(FlashEffect());
+
         // To avoid memory leaks
         Destroy(screenTexture);
+    }
+
+    private IEnumerator FlashEffect()
+    {
+        // Enable the flash panel
+        flashPanel.SetActive(true);
+
+        // Get the panel's image component
+        Image flashImage = flashPanel.GetComponent<Image>();
+
+        // Set the initial color (fully opaque)
+        flashImage.color = new Color(1, 1, 1, 1);
+
+        // Animate the flash effect (fade out)
+        float duration = 0.5f; // Duration of the flash effect
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float alpha = Mathf.Lerp(1, 0, elapsed / duration);
+            flashImage.color = new Color(1, 1, 1, alpha);
+            yield return null;
+        }
+
+        // Ensure the panel is fully transparent at the end
+        flashImage.color = new Color(1, 1, 1, 0);
+
+        // Disable the flash panel
+        flashPanel.SetActive(false);
     }
 }
