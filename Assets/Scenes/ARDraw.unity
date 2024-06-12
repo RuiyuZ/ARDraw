@@ -989,7 +989,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1125729852}
   - component: {fileID: 1125729854}
-  - component: {fileID: 1125729855}
   m_Layer: 0
   m_Name: AR Session Origin
   m_TagString: Untagged
@@ -1030,19 +1029,6 @@ MonoBehaviour:
   m_CameraFloorOffsetObject: {fileID: 0}
   m_RequestedTrackingOriginMode: 0
   m_CameraYOffset: 1.1176
---- !u!114 &1125729855
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1125729850}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa17d122634046b4a8e23048891fafc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RaycastPrefab: {fileID: 0}
 --- !u!1 &1167446570
 GameObject:
   m_ObjectHideFlags: 0
@@ -1137,10 +1123,6 @@ MonoBehaviour:
   arCamera: {fileID: 138336789}
   drawOffset: 0.5
   lineWidth: 0.01
-  materials:
-  - {fileID: 2100000, guid: a9cd2989d685c46d0b99fd169cdff375, type: 2}
-  - {fileID: 2100000, guid: 77fba168f56c24669aa0e4a5c0cb4412, type: 2}
-  - {fileID: 2100000, guid: 12ee9e4d9615742e391f75b1cd13e140, type: 2}
 --- !u!4 &1776459266
 Transform:
   m_ObjectHideFlags: 0
@@ -1215,14 +1197,14 @@ MonoBehaviour:
       m_Calls: []
   m_text: Change Color
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 0}
-  m_sharedMaterial: {fileID: 0}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4281479730
   m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -1266,7 +1248,7 @@ MonoBehaviour:
   checkPaddingRequired: 0
   m_isRichText: 1
   m_parseCtrlCharacters: 1
-  m_isOrthographic: 0
+  m_isOrthographic: 1
   m_isCullingEnabled: 0
   m_horizontalMapping: 0
   m_verticalMapping: 0
